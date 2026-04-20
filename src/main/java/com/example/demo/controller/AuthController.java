@@ -28,19 +28,18 @@ public class AuthController {
         userRepository.save(user);
         return "User registered successfully!";
     }
-    @PostMapping("/login")
-public String login(@RequestBody User user) {
+   @PostMapping("/login")
+public User login(@RequestBody User loginUser) {
+    User user = userRepository.findByEmail(loginUser.getEmail());
 
-    User existingUser = userRepository.findByEmail(user.getEmail());
-
-    if (existingUser == null) {
-        return "User not found!";
+    if (user == null) {
+        throw new RuntimeException("User not found");
     }
 
-    if (!existingUser.getPassword().equals(user.getPassword())) {
-        return "Invalid password!";
+    if (!user.getPassword().equals(loginUser.getPassword())) {
+        throw new RuntimeException("Invalid password");
     }
 
-    return "Login successful!";
+    return user; // ✅ only return User
 }
 }
