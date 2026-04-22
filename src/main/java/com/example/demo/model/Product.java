@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -14,6 +15,7 @@ public class Product {
     private String category;
     private double price;
     private String image;
+    private boolean featured;
 
     @Column(name = "in_stock")
     private boolean inStock;
@@ -37,4 +39,12 @@ public class Product {
 
     public boolean isInStock() { return inStock; }
     public void setInStock(boolean inStock) { this.inStock = inStock; }
+
+    public boolean isFeatured() {
+    return featured;
+        }
+
+    public void setFeatured(boolean featured) {
+    this.featured = featured;
+    }
 }
